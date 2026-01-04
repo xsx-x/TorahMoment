@@ -96,9 +96,7 @@
 
         const Hero = () => {
             const { scrollYProgress } = useScroll();
-            const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-            const rotate = useTransform(scrollYProgress, [0, 1], [0, 45]);
-
+            
             return (
                 <section className="min-h-screen flex items-center justify-center relative px-4">
                     <div className="text-center z-10 max-w-5xl">
@@ -147,13 +145,6 @@
                             </motion.button>
                         </div>
                     </div>
-
-                    <motion.div 
-                        style={{ y: y1, rotate }}
-                        className="absolute top-1/4 left-10 opacity-20 hidden lg:block"
-                    >
-                        <div className="w-32 h-32 border-4 border-blue-500 rounded-3xl" />
-                    </motion.div>
                 </section>
             );
         };
@@ -168,8 +159,8 @@
                 const mouseY = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                x.set((mouseX - centerX) / 10);
-                y.set((mouseY - centerY) / 10);
+                x.set((mouseX - centerX) / 15);
+                y.set((mouseY - centerY) / 15);
             };
 
             const handleMouseLeave = () => {
@@ -179,13 +170,13 @@
 
             return (
                 <motion.div
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: false }}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
                     style={{ x, y, rotateX: y, rotateY: x }}
-                    className="glass p-10 rounded-[3rem] relative group cursor-pointer overflow-hidden"
+                    className="glass p-10 rounded-[3rem] relative group cursor-pointer overflow-hidden transition-shadow hover:shadow-2xl hover:shadow-blue-500/20"
                 >
                     <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <motion.div 
@@ -241,20 +232,20 @@
             <section className="py-60 relative flex items-center justify-center">
                 <motion.div 
                     animate={{ 
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 2, -2, 0]
+                        scale: [1, 1.05, 1],
+                        rotate: [0, 1, -1, 0]
                     }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     className="text-center px-4"
                 >
                     <h2 className="text-7xl md:text-9xl font-black mb-12 tracking-tighter uppercase">אל תהיה רגיל</h2>
                     <motion.button
                         whileHover={{ 
-                            scale: 1.4, 
-                            rotate: 5,
-                            boxShadow: "0px 0px 100px rgba(59, 130, 246, 0.6)"
+                            scale: 1.2, 
+                            rotate: 3,
+                            boxShadow: "0px 0px 80px rgba(59, 130, 246, 0.5)"
                         }}
-                        className="bg-white text-black text-4xl md:text-6xl font-black px-16 py-8 rounded-full"
+                        className="bg-white text-black text-4xl md:text-6xl font-black px-16 py-8 rounded-full transition-all"
                     >
                         אני רוצה את זה!
                     </motion.button>
